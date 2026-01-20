@@ -1,0 +1,113 @@
+spring:
+  application:
+    name: base_spring_boot
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/car_ticket_booking?createDatabaseIfNotExist=true
+    username: root
+    password: 123456
+
+  jooq:
+    sql-dialect: org.hibernate.dialect.MySQL8Dialect
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        jdbc.time_zone: Asia/Ho_Chi_Minh
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 205673219686-tgvf2ghpg7dcv8rldi8il7rn2jecbrk8.apps.googleusercontent.com
+            client-secret: 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
+
+            scope:
+              - openid
+              - email
+              - profile
+            redirect-uri: "http://localhost:5173/oauth2/redirect"
+            client-name: Google
+
+          facebook:
+            client-id: 2699429560235648
+            client-secret: 5ed46f3ce1c8d0c08a585e8d26d15b59
+            scope:
+              - email
+              - public_profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: Facebook
+
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth?prompt=select_account
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+
+          facebook:
+            authorization-uri: https://www.facebook.com/v12.0/dialog/oauth
+            token-uri: https://graph.facebook.com/v12.0/oauth/access_token
+            user-info-uri: https://graph.facebook.com/me?fields=id,name,email,picture
+            user-name-attribute: id
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: minhkhanh150918@gmail.com
+    password: kecpzgzslmnbxwwq
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+gemini:
+  api-key: AIzaSyCId5wpmP1iAtqqrbTWDM_Z6r65hFLwnGU
+  model: gemini-2.5-flash
+  url: https://generativelanguage.googleapis.com/v1beta/models
+
+jwt:
+  secret:
+    key: Ascmkkqdnmsdfrtgsyuhidj21ue120938219321ndsad
+  expired:
+    access: 864000
+
+cloudinary:
+  cloud-name: dzaojduwo
+  api-key: 585341247328739
+  api-secret: XMovbwp46cSONa-1a7qgngDtGpQ
+
+schedule:
+  auto-status-update: true
+  auto-cancel: true
+
+vnpay:
+  vnp-version: "2.1.0"
+  vnp-tmn-code: "A3FRAZVN"
+  vnp-hash-secret: "ISDC92NPYQDMRCL73F8047AEMDAIQ8R3"
+  vnp-api-url: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"
+  vnp-return-url: "http://localhost:8080/api/v1/user/payments/vnpay-return"
+  vnp-pay-command: "pay"
+  vnp-curr-code: "VND"
+  vnp-locale: "vn"
+
+momo:
+  endpoint: "https://test-payment.momo.vn/v2/gateway/api/create"
+  partner-code: "MOMO"
+  access-key: "F8BBA842ECF85"
+  secret-key: "K951B6PE1waDMi640xX08PD3vg6EkVlz"
+  redirect-url: "http://localhost:8080/api/v1/user/payments/momo-return"
+  ipn-url: "http://localhost:8080/api/v1/user/payments/momo-ipn"
+  request-type: "captureWallet"
+
